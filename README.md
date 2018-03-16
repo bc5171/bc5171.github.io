@@ -2,6 +2,7 @@
 
 This portfolio is an aggregation of some of the projects that I have created over the years. The projects range from simple C problemsets to complex machine learning exploration.
 
+
 ## Machine Learning
 
 ### Stand-alone Projects
@@ -11,6 +12,7 @@ This portfolio is an aggregation of some of the projects that I have created ove
 ### Regression Projects
 
 ### Natural Language Projects
+
 
 ## Java
 
