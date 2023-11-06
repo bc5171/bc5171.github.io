@@ -1,0 +1,443 @@
+
+
+<!-- saved from url=(0032)https://www.sdg.adamjoelast.com/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>Single Drafter (Generator)</title>
+    
+    <script type="text/javascript">
+    
+    function myRandomInts(quantity, max){
+      const set = new Set()
+      while(set.size < quantity) {
+        set.add(Math.floor(Math.random() * max))
+      }
+      return set
+    }
+    
+    function getRandomInt(max) {
+      return Math.floor(Math.random() * max);
+    }
+    
+    function rollHeroes(){
+    
+        charsStr = myRandomInts(10,31);
+        charsAgi = myRandomInts(10,31);
+        charsInt = myRandomInts(10,31);
+        charsUni = myRandomInts(10,31);
+    
+        arrayStr = Array.from(charsStr);
+        arrayAgi = Array.from(charsAgi);
+        arrayInt = Array.from(charsInt);
+        arrayUni = Array.from(charsUni);
+
+        console.log(`arrayStr = ${arrayStr}`)
+        console.log(`arrayAgi = ${arrayAgi}`)
+        console.log(`arrayInt = ${arrayInt}`)
+        console.log(`arrayUni = ${arrayUni}`)
+    
+        return [arrayStr,arrayAgi,arrayInt,arrayUni];
+    }
+    
+    function hashFunc()
+    {
+        arrayHeroes = rollHeroes();
+        numRerolls = 0;
+    
+        arrayStrRank = [2.00,4.50,3.50,2.00,2.50,2.00,3.00,3.00,1.00,1.50,1.50,3.00,3.00,4.00,3.00,1.50,3.00,2.50,1.00,1.00,1.50,3.00,2.75,3.00,2.00,2.25,1.00,1.00,1.00,1.00,2.25];
+        
+        arrayAgiRank = [2.75,1.00,4.00,3.00,3.00,3.00,1.00,3.00,3.00,1.00,4.00,3.00,2.75,1.00,1.00,2.75,4.00,3.00,4.00,3.00,3.00,3.50,3.00,4.00,3.00,2.00,3.00,4.00,3.00,4.00,3.00];
+        
+        arrayIntRank = [1.00,1.00,3.00,1.00,4.50,1.00,1.00,2.50,1.00,3.00,2.50,2.50,3.00,3.00,2.50,2.50,1.00,2.00,1.00,2.00,2.25,1.00,1.00,2.50,4.50,3.00,1.00,1.00,2.50,2.50,1.00];
+        
+        arrayUniRank = [2.00,1.00,1.00,2.00,2.00,1.00,1.00,1.50,2.25,1.00,1.00,1.00,1.00,4.00,2.50,2.00,2.25,2.50,1.00,2.00,1.00,1.00,2.50,2.00,1.00,2.50,2.25,1.00,1.00,2.25,1.00];
+        
+        // Adam, Cat, Eric, Greg, Kyle, Tom, Anthony, OtherB, OtherC, OtherD
+        whosPlaying = [0,0,0,0,0,0,0,0,0,0];
+
+        // Adam, Cat, Eric, Greg, Kyle, Tom, Anthony, OtherB, OtherC, OtherD
+        whosPlaying2 =[0,0,0,0,0,0,0,0,0,0];
+        
+        arrayTeam = [0,0];
+        direDecide = getRandomInt(2);
+        console.log(`direDecide = ${direDecide}`)
+        if (document.getElementById("adam").checked == true)
+        {
+            arrayTeam = [0,direDecide];
+            console.log(`arrayTeam = ${arrayTeam}`)
+            whosPlaying[0]=1;
+            console.log(`whosPlaying = ${whosPlaying}`)
+        }
+        if (document.getElementById("cat").checked == true) 
+        {
+            arrayTeam = [1,direDecide];
+            whosPlaying[1]=1;
+        }
+        if (document.getElementById("eric").checked == true) 
+        {
+            arrayTeam = [2,direDecide];
+            whosPlaying[2]=1;
+        }
+        if (document.getElementById("greg").checked == true) 
+        {
+            arrayTeam = [3,direDecide];
+            whosPlaying[3]=1;
+        }	
+        if (document.getElementById("kyle").checked == true) 
+        {
+            arrayTeam = [4,direDecide];
+            whosPlaying[4]=1;
+        }	
+        if (document.getElementById("tom").checked == true) 
+        {
+            arrayTeam = [5,direDecide];
+            whosPlaying[5]=1;
+        }	
+        if (document.getElementById("Anthony").checked == true) 
+        {
+            arrayTeam = [6,direDecide];
+            whosPlaying[6]=1;
+        }	
+        if (document.getElementById("otherb").checked == true) 
+        {
+            arrayTeam = [7,direDecide];
+            whosPlaying[7]=1;
+        }
+        if (document.getElementById("otherc").checked == true) 
+        {
+            arrayTeam = [8,direDecide];
+            whosPlaying[8]=1;
+        }
+        if (document.getElementById("otherd").checked == true) 
+        {
+            arrayTeam = [9,direDecide];
+            whosPlaying[9]=1;
+        }
+        
+        if (document.getElementById("adam2").checked == true)
+        {
+            arrayTeam = [0,direDecide];
+            whosPlaying2[0]=1;
+        }
+        if (document.getElementById("cat2").checked == true) 
+        {
+            arrayTeam = [1,direDecide];
+            whosPlaying2[1]=1;
+        }
+        if (document.getElementById("eric2").checked == true) 
+        {
+            arrayTeam = [2,direDecide];
+            whosPlaying2[2]=1;
+        }
+        if (document.getElementById("greg2").checked == true) 
+        {
+            arrayTeam = [3,direDecide];
+            whosPlaying2[3]=1;
+        }	
+        if (document.getElementById("kyle2").checked == true) 
+        {
+            arrayTeam = [4,direDecide];
+            whosPlaying2[4]=1;
+        }	
+        if (document.getElementById("tom2").checked == true) 
+        {
+            arrayTeam = [5,direDecide];
+            whosPlaying2[5]=1;
+        }	
+        if (document.getElementById("Anthony2").checked == true) 
+        {
+            arrayTeam = [6,direDecide];
+            whosPlaying2[6]=1;
+        }	
+        if (document.getElementById("otherb2").checked == true) 
+        {
+            arrayTeam = [7,direDecide];
+            whosPlaying2[7]=1;
+        }
+        if (document.getElementById("otherc2").checked == true) 
+        {
+            arrayTeam = [8,direDecide];
+            whosPlaying2[8]=1;
+        }
+        if (document.getElementById("otherd2").checked == true) 
+        {
+            arrayTeam = [9,direDecide];
+            whosPlaying2[9]=1;
+        }	
+        //strChar = arrayHeroes[0][0];
+        //alert(arrayStrRank[strChar]);
+        //alert(whosPlaying);
+    
+        
+        //reroll logic based on reroll rules
+        if (document.getElementById("noRerolls").checked == true)
+        {
+            //do nothing, no rerolls
+        }
+        else if (document.getElementById("everyoneHappy").checked == true)
+        {
+            i=0
+            while (i < 10) 
+            { 
+                if(whosPlaying[i]==1)
+                {
+                    strChar = arrayHeroes[0][i];
+                    agiChar = arrayHeroes[1][i];
+                    intChar = arrayHeroes[2][i];	
+                    UniChar = arrayHeroes[3][i];
+                    if(arrayStrRank[strChar]<2.99 && arrayAgiRank[agiChar]<2.99 && arrayIntRank[intChar]<2.99 && arrayUniRank[UniChar]<2.99)
+                    {
+                    arrayHeroes = rollHeroes();
+                    numRerolls++;
+                    i=0;
+                    }
+                    else if ((arrayStrRank[strChar]+arrayAgiRank[agiChar]+arrayIntRank[intChar]+arrayUniRank[UniChar])/4 < 2.74)
+                    {
+                    arrayHeroes = rollHeroes();
+                    numRerolls++;
+                    i=0;
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }
+                else 
+                {
+                    i++;
+                }
+            }
+        }
+        else if (document.getElementById("meh").checked == true)
+            {
+            i=0
+            while (i < 10) 
+            { 
+                if(whosPlaying[i]==1)
+                {
+                    strChar = arrayHeroes[0][i];
+                    agiChar = arrayHeroes[1][i];
+                    intChar = arrayHeroes[2][i];
+                    UniChar = arrayHeroes[3][i];
+                    if(arrayStrRank[strChar]<2.19 && arrayAgiRank[agiChar]<2.19 && arrayIntRank[intChar]<2.19 && arrayUniRank[UniChar]<2.19)
+                    {
+                    arrayHeroes = rollHeroes();
+                    numRerolls++;
+                    i=0;
+                    }
+                    else if(arrayStrRank[strChar]>3.5)
+                    {
+                    arrayHeroes = rollHeroes();
+                    numRerolls++;
+                    i=0;
+                    }				
+                    else if(arrayAgiRank[agiChar]>3.5)
+                    {
+                    arrayHeroes = rollHeroes();
+                    numRerolls++;
+                    i=0;
+                    }					
+                    else if(arrayIntRank[intChar]>3.5)
+                    {
+                    arrayHeroes = rollHeroes();
+                    numRerolls++;
+                    i=0;
+                    }	
+                    else if(arrayUniRank[UniChar]>3.5)
+                    {
+                    arrayHeroes = rollHeroes();
+                    numRerolls++;
+                    i=0;
+                    }					
+                    else if ((arrayStrRank[strChar]+arrayAgiRank[agiChar]+arrayIntRank[intChar]+arrayUniRank[UniChar])/4 < 1.99)
+                    {
+                    arrayHeroes = rollHeroes();
+                    numRerolls++;
+                    i=0;
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }
+                else 
+                {
+                    i++;
+                }
+            }
+        }
+        else if (document.getElementById("everyonePissed").checked == true)
+            {
+            i=0
+            while (i < 10) 
+            { 
+                if(whosPlaying[i]==1)
+                {
+                    strChar = arrayHeroes[0][i];
+                    agiChar = arrayHeroes[1][i];
+                    intChar = arrayHeroes[2][i];
+                    UniChar = arrayHeroes[3][i];
+                    if(arrayStrRank[strChar]>2.01 || arrayAgiRank[agiChar]>2.01 || arrayIntRank[intChar]>2.01 || arrayUniRank[UniChar]>2.01)
+                    {
+                    arrayHeroes = rollHeroes();
+                    numRerolls++;
+                    i=0;
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }
+                else 
+                {
+                    i++;
+                }
+            }
+        }
+        else if (document.getElementById("Eventeams").checked == true)
+        {
+            i=0
+            j=0.0
+            k=0.0
+            h=0
+            fourone=0
+            fourtwo=0
+            while (h < 1)
+            {
+                while (i < 10)
+                {
+                    if(whosPlaying[i]==1)
+                    {
+                        strChar = arrayHeroes[0][i];
+                        agiChar = arrayHeroes[1][i];
+                        intChar = arrayHeroes[2][i];
+                        UniChar = arrayHeroes[3][i];
+                        j=j + ((arrayStrRank[strChar]+arrayAgiRank[agiChar]+arrayIntRank[intChar]+arrayUniRank[UniChar])/4);
+                        
+                        if (arrayStrRank[strChar] > 3.5 || arrayAgiRank[agiChar] > 3.5 || arrayIntRank[intChar] > 3.5 || arrayUniRank[UniChar] > 3.5 )
+                        {
+                            fourone++;
+                            i++;
+                        }
+                        else
+                        {
+                            i++;
+                        }
+                    }
+                    else if(whosPlaying2[i]==1)
+                    {
+                        strChar = arrayHeroes[0][i];
+                        agiChar = arrayHeroes[1][i];
+                        intChar = arrayHeroes[2][i];
+                        UniChar = arrayHeroes[3][i];
+                        k=k + ((arrayStrRank[strChar]+arrayAgiRank[agiChar]+arrayIntRank[intChar]+arrayUniRank[UniChar])/4);
+                        
+                        if (arrayStrRank[strChar] > 3.5 || arrayAgiRank[agiChar] > 3.5 || arrayIntRank[intChar] > 3.5 || arrayUniRank[UniChar] > 3.5 )
+                        {
+                            fourtwo++;
+                            i++;
+                        }
+                        
+                        else
+                        {					
+                            i++;
+                        }
+                    }	
+                    else
+                    {
+                        i++;
+                    }
+                }
+                a = Math.abs(j-k)
+                if (a > 0.15)
+                {
+                    arrayHeroes = rollHeroes();
+                    numRerolls++;
+                    h=0;
+                    j=0;
+                    k=0;
+                    i=0;
+                    fourone=0;
+                    fourtwo=0;
+                    
+                }
+                else if ( fourone != fourtwo )
+                {
+                    arrayHeroes = rollHeroes();
+                    numRerolls++;
+                    h=0;
+                    j=0;
+                    k=0;
+                    i=0;				
+                    fourone=0;
+                    fourtwo=0;			
+                }
+                else
+                {
+                    h=2;
+                }
+            }
+        }
+        combineOut=arrayHeroes+","+arrayTeam;
+        console.log(`combineOut = ${combineOut}`)
+        document.getElementById("outString").innerHTML=combineOut;
+        document.getElementById("outRerolls").innerHTML=numRerolls;
+        
+        
+        
+    }
+    </script>
+    
+    <script async="" src="./Single Drafter (Generator)_files/adblocker-chromeglobalinjectjs.js.download"></script><style></style></head>
+    
+    <body><h1>Single Drafter (Generator)</h1>
+    <p><i>v0.2, Adam Last, 01/15/2022</i></p>
+    
+    
+    <h2>Who's Playing?</h2>
+    <p>
+    Team 1 <br>
+    Adam <input type="checkbox" id="adam" name="adam" ><br>
+    Cat <input type="checkbox" id="cat" name="cat" ><br>
+    Eric <input type="checkbox" id="eric" name="eric" ><br>
+    Greg <input type="checkbox" id="greg" name="greg" ><br>
+    Kyle <input type="checkbox" id="kyle" name="kyle"><br>
+    Tom <input type="checkbox" id="tom" name="tom"><br>
+    Anthony <input type="checkbox" id="Anthony" name="Anthony"><br>
+    Other B <input type="checkbox" id="otherb" name="otherb" ><br>
+    Other C <input type="checkbox" id="otherc" name="otherc"><br>
+    Other D <input type="checkbox" id="otherd" name="otherd" ><br>
+    <br>
+    Team 2<br>
+    Adam <input type="checkbox" id="adam2" name="adam2"><br> 
+    Cat <input type="checkbox" id="cat2" name="cat2" ><br>
+    Eric <input type="checkbox" id="eric2" name="eric2"><br>
+    Greg <input type="checkbox" id="greg2" name="greg2" ><br>
+    Kyle <input type="checkbox" id="kyle2" name="kyle2" ><br>
+    Tom <input type="checkbox" id="tom2" name="tom2"><br>
+    Anthony <input type="checkbox" id="Anthony2" name="Anthony2" ><br>
+    Other B <input type="checkbox" id="otherb2" name="otherb2" ><br>
+    Other C <input type="checkbox" id="otherc2" name="otherc2" ><br>
+    Other D <input type="checkbox" id="otherd2" name="otherd2" ><br>
+    
+    </p>
+    
+    <h2>Choose Reroll Rules:</h2>
+    <p>
+    <input type="radio" id="noRerolls" name="selectMode">No Rerolls <br>
+    <input type="radio" id="everyoneHappy" name="selectMode">Everyone Happy (everyone has at least one hero rated 2.8 or greater) <i>[rerolls an average of 887654 times for 6 players]</i><br>
+    <input type="radio" id="meh" name="selectMode">Meh (everyone has at least one hero rated 2.2 or greater) <i>[rerolls an average of 0.3 times for 6 players]</i><br>
+    <input type="radio" id="everyonePissed" name="selectMode">Everyone Pissed (no one has any hero rated greater than 2.0) <i>[rerolls an average of 1807560 times for 6 players]</i><br>
+    <input type="radio" id="Eventeams" name="selectMode">Averages Team1 and Team2 average pick score to within 0.15 & balances Rank 4 Characters <i>[rerolls an average of 30 times for 6 players]</i><br>
+    </p>
+    
+    
+    
+    <button onclick="hashFunc()">Generate Game!</button>
+    <h3>Game String:<br><span id="outString">---</span></h3>
+    <p>Debug info:<br><br>Number of rerolls:<span id="outRerolls">---</span></p>
+    
+    
+    
+    
+    
+    </body></html>

@@ -1,0 +1,58 @@
+<mat-toolbar>
+    <span>Enter Decoder Settings</span>
+</mat-toolbar>
+<mat-accordion>
+    <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Game String
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-form-field class="decoder-full-width">
+            <textarea matInput placeholder="Ex. 12,3,1... " [(ngModel)]="encodedString"></textarea>
+        </mat-form-field>
+    </mat-expansion-panel>
+    <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Select Who to Decode For
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-chip-listbox aria-label="">
+            <mat-chip-option *ngFor="let player of players" [value]="player.name" (click)="onChipSelected(player.name)">
+                {{player.name}}
+            </mat-chip-option>
+        </mat-chip-listbox>
+    </mat-expansion-panel>
+</mat-accordion>
+<mat-divider></mat-divider>
+<mat-toolbar>
+    <mat-toolbar-row>
+        <span>Calculate Game Mechanics</span>
+        <span class="example-spacer"></span>
+        <button mat-raised-button color="accent" (click)="decodeEncodedString()">
+            See Your Characters
+            <mat-icon>arrow_forward_ios/mat-icon</mat-icon>
+        </button>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+        <span>Strength Heroes: </span>
+        <span class="example-spacer"></span>
+        <span>{{strengthHero}}</span>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+        <span>Agility Heroes: </span>
+        <span class="example-spacer"></span>
+        <span>{{agilityHero}}</span>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+        <span>Intelligence Heroes: </span>
+        <span class="example-spacer"></span>
+        <span>{{intelligenceHero}}</span>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+        <span>Universal Heroes: </span>
+        <span class="example-spacer"></span>
+        <span>{{universalHero}}</span>
+    </mat-toolbar-row>
+</mat-toolbar>

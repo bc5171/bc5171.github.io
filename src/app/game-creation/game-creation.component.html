@@ -1,0 +1,72 @@
+<mat-toolbar>
+    <span>Select Players + Settings</span>
+</mat-toolbar>
+<mat-accordion>
+    <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Team 1
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-selection-list #playerList>
+            <mat-list-option *ngFor="let player of playersTeam1" (click)="clickedSomeone(playerList)" [value]="player.name">
+                {{player.name}}
+            </mat-list-option>
+        </mat-selection-list>
+    </mat-expansion-panel>
+    <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Team 2
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-selection-list #playerList2>
+            <mat-list-option *ngFor="let player of playersTeam2" (click)="clickedSomeone2(playerList2)" [value]="player.name">
+                {{player.name}}
+            </mat-list-option>
+        </mat-selection-list>
+    </mat-expansion-panel>
+    <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Choose Reroll Rules
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-radio-group [(ngModel)]="selectedReroll">
+            <mat-radio-button *ngFor="let s of reRollSelections" [value]="s">
+                {{s}}
+            </mat-radio-button>
+        </mat-radio-group>
+    </mat-expansion-panel>
+</mat-accordion>
+<mat-divider></mat-divider>
+<mat-toolbar>
+    <mat-toolbar-row>
+        <span>Calculate Game Mechanics</span>
+        <span class="example-spacer"></span>
+        <button mat-raised-button color="accent" (click)="calculateGameMechanics()">
+            Execute
+            <mat-icon>arrow_forward_ios</mat-icon>
+        </button>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+        <span>Strength Heroes: </span>
+        <span class="example-spacer"></span>
+        <span>{{ strengthHashOutput.join(', ') }}</span>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+        <span>Agility Heroes: </span>
+        <span class="example-spacer"></span>
+        <span>{{ agilityHashOutput.join(', ') }}</span>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+        <span>Intelligence Heroes: </span>
+        <span class="example-spacer"></span>
+        <span>{{ intelligenceHashOutput.join(', ') }}</span>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+        <span>Universal Heroes: </span>
+        <span class="example-spacer"></span>
+        <span>{{ universalHashOutput.join(', ') }}</span>
+    </mat-toolbar-row>
+</mat-toolbar>

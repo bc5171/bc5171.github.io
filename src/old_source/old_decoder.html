@@ -1,0 +1,220 @@
+
+
+<!-- saved from url=(0032)https://www.sdd.adamjoelast.com/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>Single Drafter (Decoder)</title>
+    
+    <script type="text/javascript">
+    
+    function clearFunc()
+    {
+        document.getElementById('inpString').value = '';
+        document.getElementById("outStringStr").innerHTML="---";
+        document.getElementById("outStringAgi").innerHTML="---";
+        document.getElementById("outStringInt").innerHTML="---";
+        document.getElementById("outStringUni").innerHTML="---";
+        document.getElementById("outStringIsDire").innerHTML="---";
+        document.getElementById("outStringLeader").innerHTML="---";
+        document.getElementById("errorMsg").innerHTML="";
+    }
+    
+    function hashFunc()
+    {
+        document.getElementById("errorMsg").innerHTML="";
+        inputArray = document.getElementById("inpString").value.split(",");
+        // Base = 0, then add 10
+        if (document.getElementById("adam").checked == true)
+        {
+            outputStr = inputArray[0]
+            outputAgi = inputArray[10]
+            outputInt = inputArray[20]
+            outputUni = inputArray[30]
+        }
+        else if (document.getElementById("cat").checked == true) 
+        {
+            outputStr = inputArray[1]
+            outputAgi = inputArray[11]
+            outputInt = inputArray[21]
+            outputUni = inputArray[31]
+        }
+        else if (document.getElementById("eric").checked == true) 
+        {
+            outputStr = inputArray[2]
+            outputAgi = inputArray[12]
+            outputInt = inputArray[22]
+            outputUni = inputArray[32]
+        }
+        else if (document.getElementById("greg").checked == true) 
+        {
+            outputStr = inputArray[3]
+            outputAgi = inputArray[13]
+            outputInt = inputArray[23]
+            outputUni = inputArray[33]
+        }	
+        else if (document.getElementById("kyle").checked == true) 
+        {
+            outputStr = inputArray[4]
+            outputAgi = inputArray[14]
+            outputInt = inputArray[24]
+            outputUni = inputArray[34]
+        }	
+        else if (document.getElementById("tom").checked == true) 
+        {
+            outputStr = inputArray[5]
+            outputAgi = inputArray[15]
+            outputInt = inputArray[25]
+            outputUni = inputArray[35]
+        }	
+        else if (document.getElementById("Anthony").checked == true) 
+        {
+            outputStr = inputArray[6]
+            outputAgi = inputArray[16]
+            outputInt = inputArray[26]
+            outputUni = inputArray[36]
+        }	
+        else if (document.getElementById("otherb").checked == true) 
+        {
+            outputStr = inputArray[7]
+            outputAgi = inputArray[17]
+            outputInt = inputArray[27]
+            outputUni = inputArray[37]
+        }
+        else if (document.getElementById("otherc").checked == true) 
+        {
+            outputStr = inputArray[8]
+            outputAgi = inputArray[18]
+            outputInt = inputArray[28]
+            outputUni = inputArray[38]
+        }
+        else if (document.getElementById("otherd").checked == true) 
+        {
+            outputStr = inputArray[9]
+            outputAgi = inputArray[19]
+            outputInt = inputArray[29]
+            outputUni = inputArray[39]
+        }
+        else
+        {
+            document.getElementById("errorMsg").innerHTML="ERROR: You need to select who you are.  If you don't know, try meditation... not Dota.";
+        }
+        
+        if (inputArray[40] == "0")
+        {
+            document.getElementById("outStringLeader").innerHTML="Adam";
+        }
+        else if (inputArray[40] == "1")
+        {
+            document.getElementById("outStringLeader").innerHTML="Cat";
+        }
+        else if (inputArray[40] == "2")
+        {
+            document.getElementById("outStringLeader").innerHTML="Eric";
+        }
+        else if (inputArray[40] == "3")
+        {
+            document.getElementById("outStringLeader").innerHTML="Greg";
+        }
+        else if (inputArray[40] == "4")
+        {
+            document.getElementById("outStringLeader").innerHTML="Kyle";
+        }
+        else if (inputArray[40] == "5")
+        {
+            document.getElementById("outStringLeader").innerHTML="Tom";
+        }
+        else if (inputArray[40] == "6")
+        {
+            document.getElementById("outStringLeader").innerHTML="Anthony";
+        }
+        else if (inputArray[40] == "7")
+        {
+            document.getElementById("outStringLeader").innerHTML="Other B";
+        }
+        else if (inputArray[40] == "8")
+        {
+            document.getElementById("outStringLeader").innerHTML="Other C";
+        }
+        else if (inputArray[40] == "9")
+        {
+            document.getElementById("outStringLeader").innerHTML="Other D";
+        }
+        
+        if (inputArray[41] == "0")
+        {
+            document.getElementById("outStringIsDire").innerHTML="Dire";
+        }
+        else
+        {
+            document.getElementById("outStringIsDire").innerHTML="Radiant";
+        }
+        
+        arrayStr=["Alchemist","Axe","Bristleback","Centaur Warrunner","Chaos Knight","Dawnbreaker","Doom","Dragon Knight","Earth Spirit","Earthshaker","Elder Titan","Huskar","Kunkka","Legion Commander","Lifestealer","Mars","Night Stalker","Ogre Magi","Omniknight","Primal Beast","Pudge","Slardar","Spirit Breaker","Sven","Tidehunter","Tiny","Treant Protector","Tusk","Underlord","Undying","Wraith King"];
+        
+        arrayAgi=["Anti-Mage","Arc Warden","Bloodseeker","Bounty Hunter","Clinkz","Drow Ranger","Ember Spirit","Faceless Void","Gyrocopter","Hoodwink","Juggernaut","Luna","Medusa","Meepo","Monkey King","Morphling","Naga Siren","Phantom Assassin","Phantom Lancer","Razor","Riki","Shadow Fiend","Slark","Sniper","Spectre","Templar Assassin","Terrorblade","Troll Warlord","Ursa","Viper","Weaver"];
+        
+        arrayInt=["Ancient Apparition","Crystal Maiden","Death Prophet","Disruptor","Enchantress","Grimstroke","Invoker","Jakiro","Keeper of the Light","Leshrac","Lich","Lina","Lion","Muerta","Nature's Prophet","Necrophos","Oracle","Outworld Destroyer","Puck","Pugna","Queen of Pain","Rubick","Shadow Demon","Shadow Shaman","Silencer","Skywrath Mage","Storm Spirit","Tinker","Warlock","Witch Doctor","Zeus"];
+        
+        arrayUni=["Abaddon","Bane","Batrider","Beastmaser","Brewmaser","Broodmother","Chen","Clockwerk","Dark Seer","Dark Willow","Dazzle","Enigma","IO","Lone Druid","Lycan","Magnus","Marci","Mirana","Nyx Assassin","Pangolier","Phoenix","Sand King","Snapfire","Techies","Timbersaw","Vengful Spirit","Venomancer","Visage","Void Spirit","Windranger","Winter Wyvern"];
+        
+        arrayStrRank = [2.00,4.50,3.50,2.00,2.50,2.00,3.00,3.00,1.00,1.50,1.50,3.00,3.00,4.00,3.00,1.50,3.00,2.50,1.00,1.00,1.50,3.00,2.75,3.00,2.00,2.25,1.00,1.00,1.00,1.00,2.25];
+        
+        arrayAgiRank = [2.75,1.00,4.00,3.00,3.00,3.00,1.00,3.00,3.00,1.00,4.00,3.00,2.75,1.00,1.00,2.75,4.00,3.00,4.00,3.00,3.00,3.50,3.00,4.00,3.00,2.00,3.00,4.00,3.00,4.00,3.00];
+        
+        arrayIntRank = [1.00,1.00,3.00,1.00,4.50,1.00,1.00,2.50,1.00,3.00,2.50,2.50,3.00,3.00,2.50,2.50,1.00,2.00,1.00,2.00,2.25,1.00,1.00,2.50,4.50,3.00,1.00,1.00,2.50,2.50,1.00];
+        
+        arrayUniRank = [2.00,1.00,1.00,2.00,2.00,1.00,1.00,1.50,2.25,1.00,1.00,1.00,1.00,4.00,2.50,2.00,2.25,2.50,1.00,2.00,1.00,1.00,2.50,2.00,1.00,2.50,2.25,1.00,1.00,2.25,1.00];
+        
+        valStrRank = arrayStrRank[outputStr];
+        valAgiRank = arrayAgiRank[outputAgi];
+        valIntRank = arrayIntRank[outputInt];
+        valUniRank = arrayUniRank[outputUni];
+        valAvgRank = Math.floor((valStrRank+valAgiRank+valIntRank+valUniRank)/4 * 100) / 100
+        
+        document.getElementById("outStringStrRank").innerHTML=valStrRank;
+        document.getElementById("outStringAgiRank").innerHTML=valAgiRank;
+        document.getElementById("outStringIntRank").innerHTML=valIntRank;
+        document.getElementById("outStringUniRank").innerHTML=valUniRank;
+        document.getElementById("outStringAvgRank").innerHTML=valAvgRank;
+        
+        document.getElementById("outStringStr").innerHTML=arrayStr[outputStr];
+        document.getElementById("outStringAgi").innerHTML=arrayAgi[outputAgi];
+        document.getElementById("outStringInt").innerHTML=arrayInt[outputInt];
+        document.getElementById("outStringUni").innerHTML=arrayUni[outputUni];
+    }
+    </script>
+    
+    <style></style><script async="" src="./Single Drafter (Decoder)_files/adblocker-chromeglobalinjectjs.js.download"></script></head>
+    
+    <body><h1>Single Drafter (Decoder)</h1>
+    <p><i>v0.2, Adam Last, 01/15/2022</i></p>
+    
+    <h2>Enter Game String:</h2>
+    <input type="text" id="inpString" name="inpString">
+    
+    
+    <br>
+    <h2>Who Are You?</h2>
+    <p>
+    Adam <input type="radio" id="adam" name="player"><br>
+    Cat <input type="radio" id="cat" name="player"><br>
+    Eric <input type="radio" id="eric" name="player"><br>
+    Greg <input type="radio" id="greg" name="player"><br>
+    Kyle <input type="radio" id="kyle" name="player"><br>
+    Tom <input type="radio" id="tom" name="player"><br>
+    Anthony <input type="radio" id="Anthony" name="player"><br>
+    Other B <input type="radio" id="otherb" name="player"><br>
+    Other C <input type="radio" id="otherc" name="player"><br>
+    Other D <input type="radio" id="otherd" name="player"><br>
+    </p>
+    
+    
+    <button onclick="hashFunc()">See Your Characters!</button>
+    <p>RESULT: <br><i><span id="errorMsg"></span></i><br><br><b>Strength: <span id="outStringStr">---</span></b>, Score: <span id="outStringStrRank">---</span><br><b>Agility: <span id="outStringAgi">---</span></b>, Score: <span id="outStringAgiRank">---</span> <br><b>Intellect: <span id="outStringInt">---</span></b>, Score: <span id="outStringIntRank">---</span> <br><b>Universal: <span id="outStringUni">---</span></b>, Score: <span id="outStringUniRank">---</span><br><b>
+    <br>Your average pick score is : <span id="outStringAvgRank">---</span>
+    <br>The team with <b><span id="outStringLeader">---</span></b> is <b><span id="outStringIsDire">---</span></b></p>
+    <br>
+    <button onclick="clearFunc()">Clear All</button>
+    
+    
+    
+    </body></html>

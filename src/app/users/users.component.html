@@ -1,0 +1,24 @@
+<ul class="heroes">
+    <li *ngFor="let hero of users">
+      <a routerLink="/detail/{{hero.id}}">
+        <span class="badge">{{hero.id}}</span> {{hero.name}}
+      </a>
+    </li>
+  </ul>
+<!-- <h2>Players</h2>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div *ngFor="let user of users" class="row">
+                <button type="button" (click)="onSelect(user)">
+                    <span class="badge">{{user.id}}</span>
+                    <span class="name">{{user.name}}</span>
+                </button>
+                <div>&nbsp;</div>
+            </div>
+        </div>
+        <div class="col">
+            <app-user-detail [user]="selectedUser"></app-user-detail>
+        </div>
+    </div>
+</div> -->

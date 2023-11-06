@@ -1,0 +1,10 @@
+<div class="spacer"></div>
+<div class="container">
+  <div class="row">
+    <ul class="list-group">
+        <li class="list-group-item bi bi-chevron-right" *ngFor="let player of players">
+          <a routerLink="/detail/{{player.id}}">{{ player.name }}</a>
+        </li>
+      </ul>
+  </div>
+</div>
