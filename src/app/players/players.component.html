@@ -1,10 +1,13 @@
-<div class="spacer"></div>
-<div class="container">
-  <div class="row">
-    <ul class="list-group">
-        <li class="list-group-item bi bi-chevron-right" *ngFor="let player of players">
-          <a routerLink="/detail/{{player.id}}">{{ player.name }}</a>
-        </li>
-      </ul>
-  </div>
-</div>
+<mat-expansion-panel hideToggle>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Player Stats
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <mat-list>
+    <mat-list-item *ngFor="let player of players">
+      <mat-icon matListItemIcon>person</mat-icon>
+      {{player.name}}
+    </mat-list-item>
+  </mat-list>
+</mat-expansion-panel>

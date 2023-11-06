@@ -1,11 +1,4 @@
-<div class="spacer"></div>
-<div class="container">
-  <div class="row">
     <h2>Top Heroes</h2>
-  </div>
-  <div class="row">
     <a *ngFor="let player of players" routerLink="/detail/{{player.id}}">
       {{player.name}}
     </a>
-  </div>
-</div>

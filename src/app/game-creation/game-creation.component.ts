@@ -21,6 +21,8 @@ export class GameCreationComponent implements OnInit {
   playersTeam1: Player[] = [];
   playersTeam2: Player[] = [];
 
+  playerDireTeam: string = "";
+
   strengthHashOutput: number[] = [];
   agilityHashOutput: number[] = [];
   intelligenceHashOutput: number[] = [];
@@ -30,6 +32,7 @@ export class GameCreationComponent implements OnInit {
 
   selectedPlayers: string[] = [];
   selectedPlayers2: string[] = [];
+  totalSelectedPlayers: string[] = [];
 
   selectedReroll: string = "";
   reRollSelections: string[] = ['No Rerolls', 'Everyone is Happy', 'Meh', 'Everyone is Pissed', 'Average Them All'];
@@ -55,11 +58,12 @@ export class GameCreationComponent implements OnInit {
 
     // First roll for the heroes
     const heroesArr: number[][] = this.hashService.rollHeroes();
-    const decideIfDire: number = this.hashService.getRandomInt(2);
-    
-    for (const p of this.selectedPlayers) {
-      // playersTeam1[p]
-    }
+
+    this.totalSelectedPlayers = this.selectedPlayers.concat(this.selectedPlayers2);
+
+    const decideIfDire: number = this.hashService.getRandomInt(this.totalSelectedPlayers.length);
+
+    this.playerDireTeam = this.totalSelectedPlayers[decideIfDire];
     
     this.strengthHashOutput = heroesArr[0];
     this.agilityHashOutput = heroesArr[1];
