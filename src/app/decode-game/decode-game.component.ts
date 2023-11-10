@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PlayerService } from '../player.service';
 import { Player } from '../player';
+import { Hero } from '../hero';
+import { HeroService } from '../hero.service';
 
 @Component({
   selector: 'app-decode-game',
@@ -8,11 +10,17 @@ import { Player } from '../player';
   styleUrls: ['./decode-game.component.css']
 })
 export class DecodeGameComponent implements OnInit {
-
+  
   constructor(
-    private playerService: PlayerService
-  ) {}
-
+    private playerService: PlayerService,
+    private heroService: HeroService
+    ) {}
+    
+  strengthHeroes: Hero[] = [];
+  agilityHeroes: Hero[] = [];
+  intelligenceHeroes: Hero[] = [];
+  universalHeroes: Hero[] = [];
+  
   players: Player[] = [];
   
   // Radio button selection
@@ -37,42 +45,39 @@ export class DecodeGameComponent implements OnInit {
     let intelligenceOffset: number = 20;
     let universalOffset: number = 30;
 
-    // refactor in objects
-    let strengthHeroes: string[] = ["Alchemist","Axe","Bristleback","Centaur Warrunner","Chaos Knight","Dawnbreaker","Doom","Dragon Knight","Earth Spirit","Earthshaker","Elder Titan","Huskar","Kunkka","Legion Commander","Lifestealer","Mars","Night Stalker","Ogre Magi","Omniknight","Primal Beast","Pudge","Slardar","Spirit Breaker","Sven","Tidehunter","Tiny","Treant Protector","Tusk","Underlord","Undying","Wraith King"];
-    let agilityHeroes: string[] = ["Anti-Mage","Arc Warden","Bloodseeker","Bounty Hunter","Clinkz","Drow Ranger","Ember Spirit","Faceless Void","Gyrocopter","Hoodwink","Juggernaut","Luna","Medusa","Meepo","Monkey King","Morphling","Naga Siren","Phantom Assassin","Phantom Lancer","Razor","Riki","Shadow Fiend","Slark","Sniper","Spectre","Templar Assassin","Terrorblade","Troll Warlord","Ursa","Viper","Weaver"];
-    let intelligenceHeroes: string[] = ["Ancient Apparition","Crystal Maiden","Death Prophet","Disruptor","Enchantress","Grimstroke","Invoker","Jakiro","Keeper of the Light","Leshrac","Lich","Lina","Lion","Muerta","Nature's Prophet","Necrophos","Oracle","Outworld Destroyer","Puck","Pugna","Queen of Pain","Rubick","Shadow Demon","Shadow Shaman","Silencer","Skywrath Mage","Storm Spirit","Tinker","Warlock","Witch Doctor","Zeus"];
-    let universalHeroes: string[] = ["Abaddon","Bane","Batrider","Beastmaser","Brewmaser","Broodmother","Chen","Clockwerk","Dark Seer","Dark Willow","Dazzle","Enigma","IO","Lone Druid","Lycan","Magnus","Marci","Mirana","Nyx Assassin","Pangolier","Phoenix","Sand King","Snapfire","Techies","Timbersaw","Vengful Spirit","Venomancer","Visage","Void Spirit","Windranger","Winter Wyvern"];
-
-    // refactor into a switch
-    if (this.selectedPlayer === "Adam") {
-      offset = 0;
-    } else 
-    if (this.selectedPlayer === "Cat") {
-      offset = 1;
-    } else
-    if (this.selectedPlayer === "Eric") {
-      offset = 2;
-    } else 
-    if (this.selectedPlayer === "Greg") {
-      offset = 3;
-    } else
-    if (this.selectedPlayer === "Kyle") {
-      offset = 4;
-    } else
-    if (this.selectedPlayer === "Thomas") {
-      offset = 5;
-    } else
-    if (this.selectedPlayer === "Anthony") {
-      offset = 6;
-    } else
-    if (this.selectedPlayer === "OtherB") {
-      offset = 7;
-    } else
-    if (this.selectedPlayer === "OtherC") {
-      offset = 8;
-    } else
-    if (this.selectedPlayer === "OtherD") {
-      offset = 9;
+    switch (this.selectedPlayer) {
+      case "Adam":
+        offset = 0;
+        break;
+      case "Cat":
+        offset = 1;
+        break;
+      case "Eric":
+        offset = 2;
+        break;
+      case "Greg":
+        offset = 3;
+        break;
+      case "Kyle":
+        offset = 4;
+        break;
+      case "Thomas":
+        offset = 5;
+        break;
+      case "Anthony":
+        offset = 6;
+        break;
+      case "OtherB":
+        offset = 7;
+        break;
+      case "OtherC":
+        offset = 8;
+        break;
+      case "OtherD":
+        offset = 9;
+        break;
+      default:
+        console.log(`An error has occured...`);
     }
 
     const seperateEncodedString = this.encodedString.split(',');
@@ -82,10 +87,12 @@ export class DecodeGameComponent implements OnInit {
     const intelligenceHeroIndex = encodedStringArr[intelligenceOffset + offset];
     const universalHeroIndex = encodedStringArr[universalOffset + offset];
 
-    this.strengthHero = strengthHeroes[strengthHeroIndex];
-    this.agilityHero = agilityHeroes[agilityHeroIndex];
-    this.intelligenceHero = intelligenceHeroes[intelligenceHeroIndex];
-    this.universalHero = universalHeroes[universalHeroIndex];
+    this.strengthHero = this.strengthHeroes[strengthHeroIndex].name;
+    console.log(`AgilityHeroIndex: ${agilityHeroIndex}`);
+    console.log(`${JSON.stringify(this.agilityHeroes)}`)
+    this.agilityHero = this.agilityHeroes[agilityHeroIndex].name;
+    this.intelligenceHero = this.intelligenceHeroes[intelligenceHeroIndex].name;
+    this.universalHero = this.universalHeroes[universalHeroIndex].name;
 
   }
 
@@ -94,8 +101,28 @@ export class DecodeGameComponent implements OnInit {
     this.playerService.getPlayers().subscribe(players => this.players = players);
   }
 
+  getStrengthHeroes(): void {
+    this.heroService.getStrengthHeroes().subscribe(strengthHeroes => this.strengthHeroes = strengthHeroes);
+  }
+
+  getAgilityHeroes(): void {
+    this.heroService.getAgilityHeroes().subscribe(agilityHeroes => this.agilityHeroes = agilityHeroes);
+  }
+
+  getIntelligenceHeroes(): void {
+    this.heroService.getIntelligenceHeroes().subscribe(intelligenceHeroes => this.intelligenceHeroes = intelligenceHeroes);
+  }
+
+  getUniversalHeroes(): void {
+    this.heroService.getUniversalHeroes().subscribe(universalHeroes => this.universalHeroes = universalHeroes);
+  }
+
   ngOnInit(): void {
     this.getPlayers();
+    this.getStrengthHeroes();
+    this.getAgilityHeroes();
+    this.getIntelligenceHeroes();
+    this.getUniversalHeroes();
   }
 
 }
