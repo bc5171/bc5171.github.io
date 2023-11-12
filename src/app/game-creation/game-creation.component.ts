@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { PlayerService } from '../player.service';
 import { Player } from '../player';
 import { HashService } from '../hash.service';
-import { HeroOffset } from '../hero-offset';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
+import { rankStats } from '../rankStats';
 
 @Component({
   selector: 'app-game-creation',
@@ -64,6 +64,101 @@ export class GameCreationComponent implements OnInit {
 
   clickedSomeone2(playerList: any): void {
     this.selectedPlayers2 = playerList.selectedOptions.selected.map((item: { value: any; }) => item.value);
+  }
+
+  averageThemAll(): number[][] {
+
+    let heroesArr: number[][] = [[]];
+    let averageStrengthHero: rankStats = {averageRank: 0, stdDeviation: 0};
+    let averageAgilityHero: rankStats = {averageRank: 0, stdDeviation: 0};
+    let averageIntelligenceHero: rankStats = {averageRank: 0, stdDeviation: 0};
+    let averageUniversalHero: rankStats = {averageRank: 0, stdDeviation: 0};
+
+    averageStrengthHero = this.heroService.averageHeroes(this.strengthHeroes);
+    averageAgilityHero = this.heroService.averageHeroes(this.agilityHeroes);
+    averageIntelligenceHero = this.heroService.averageHeroes(this.intelligenceHeroes);
+    averageUniversalHero = this.heroService.averageHeroes(this.universalHeroes);
+
+    return heroesArr;
+
+  }
+
+  everyoneIsPissed(): number[][] {
+    let heroesArr: number[][] = [[]];
+
+    for (let player of this.totalSelectedPlayers) {
+      heroesArr = this.hashService.rollHeroes();
+      let notHappyYet: boolean = true;
+
+      while (notHappyYet) {
+        
+        let offset: number = this.playerService.playerOffset(player);
+        let strengthHero: Hero = this.strengthHeroes[heroesArr[0][offset]];
+        let agilityHero: Hero = this.agilityHeroes[heroesArr[1][offset]];
+        let intelligenceHero: Hero = this.intelligenceHeroes[heroesArr[2][offset]];
+        let universalHero: Hero = this.universalHeroes[heroesArr[3][offset]];
+
+        if (strengthHero.rank > 2.01 && agilityHero.rank > 2.01
+          && intelligenceHero.rank > 2.01 && universalHero.rank > 2.01) {
+            heroesArr = this.hashService.rollHeroes();
+          }
+        else {
+          notHappyYet = false;
+        }
+
+      }
+
+
+    }
+
+    return heroesArr;
+  }
+
+  meh(): number[][] {
+    // keep rolling until at least 1 hero is > 2.19 and not less than 3.5
+    let heroesArr: number[][] =[[]];
+
+    for (let player of this.totalSelectedPlayers) {
+
+      heroesArr = this.hashService.rollHeroes();
+      let notHappyYet: boolean = true;
+
+      while (notHappyYet) {
+        let offset: number = this.playerService.playerOffset(player);
+        let strengthHero: Hero = this.strengthHeroes[heroesArr[0][offset]];
+        let agilityHero: Hero = this.agilityHeroes[heroesArr[1][offset]];
+        let intelligenceHero: Hero = this.intelligenceHeroes[heroesArr[2][offset]];
+        let universalHero: Hero = this.universalHeroes[heroesArr[3][offset]];
+
+        if (strengthHero.rank < 2.19 && agilityHero.rank < 2.19
+          && intelligenceHero.rank < 2.19 && universalHero.rank < 2.19) {
+            heroesArr = this.hashService.rollHeroes();
+          }
+        else if (strengthHero.rank > 3.5) {
+          heroesArr = this.hashService.rollHeroes();
+        }
+        else if (agilityHero.rank > 3.5) {
+          heroesArr = this.hashService.rollHeroes();
+        }
+        else if (intelligenceHero.rank > 3.5) {
+          heroesArr = this.hashService.rollHeroes();
+        }
+        else if (universalHero.rank > 3.5) {
+          heroesArr = this.hashService.rollHeroes();
+        }
+        else if ((strengthHero.rank + agilityHero.rank
+          + intelligenceHero.rank + universalHero.rank) / 4 < 1.99) {
+            heroesArr = this.hashService.rollHeroes();
+          }
+        else {
+          notHappyYet = false;
+        }
+      }
+
+    }
+
+    return heroesArr;
+
   }
 
   everyoneHappy(): number[][] {
@@ -149,8 +244,15 @@ export class GameCreationComponent implements OnInit {
         heroesArr = this.hashService.rollHeroes();
         break;
       case "Everyone is Happy":
-        alert('here');
         heroesArr = this.everyoneHappy();
+        break;
+      case "Meh":
+        heroesArr = this.meh();
+        break;
+      case "Everyone is Pissed":
+        heroesArr = this.everyoneIsPissed();
+        break;
+      case "Average Them All":
         break;
       default:
         break;
