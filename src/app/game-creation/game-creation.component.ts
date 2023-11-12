@@ -3,7 +3,9 @@ import { PlayerService } from '../player.service';
 import { Player } from '../player';
 import { HashService } from '../hash.service';
 import { HeroOffset } from '../hero-offset';
-import {Clipboard} from '@angular/cdk/clipboard';
+import { Clipboard } from '@angular/cdk/clipboard';
+import { Hero } from '../hero';
+import { HeroService } from '../hero.service';
 
 @Component({
   selector: 'app-game-creation',
@@ -15,7 +17,8 @@ export class GameCreationComponent implements OnInit {
   constructor(
     private playerService: PlayerService,
     private hashService: HashService,
-    private clipboard: Clipboard
+    private clipboard: Clipboard,
+    private heroService: HeroService
   ) {}
 
   playersTeam1: Player[] = [];
@@ -34,6 +37,11 @@ export class GameCreationComponent implements OnInit {
   selectedPlayers2: string[] = [];
   totalSelectedPlayers: string[] = [];
 
+  strengthHeroes: Hero[] = [];
+  agilityHeroes: Hero[] = [];
+  intelligenceHeroes: Hero[] = [];
+  universalHeroes: Hero[] = [];
+
   selectedReroll: string = "";
   reRollSelections: string[] = ['No Rerolls', 'Everyone is Happy', 'Meh', 'Everyone is Pissed', 'Average Them All'];
 
@@ -44,6 +52,10 @@ export class GameCreationComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPlayers();
+    this.getStrengthHeroes();
+    this.getAgilityHeroes();
+    this.getIntelligenceHeroes();
+    this.getUniversalHeroes();
   }
 
   clickedSomeone(playerList: any): void {
@@ -54,12 +66,95 @@ export class GameCreationComponent implements OnInit {
     this.selectedPlayers2 = playerList.selectedOptions.selected.map((item: { value: any; }) => item.value);
   }
 
+  everyoneHappy(): number[][] {
+
+    // keep rolling until 1 of 2 conditions
+    // condition 1 - all character strengths are > 2.99
+    // condition 2 - sum of rankings / 4 >= 2.75
+
+    let heroesArr: number[][] = [[]];
+    
+    for (let player of this.totalSelectedPlayers) {
+      
+      heroesArr = this.hashService.rollHeroes();
+      let notHappyYet: boolean = true;
+      
+      while (notHappyYet) {
+        
+        let offset: number = this.playerService.playerOffset(player);
+        let strengthHero: Hero = this.strengthHeroes[heroesArr[0][offset]];
+        let agilityHero: Hero = this.agilityHeroes[heroesArr[1][offset]];
+        let intelligenceHero: Hero = this.intelligenceHeroes[heroesArr[2][offset]];
+        let universalHero: Hero = this.universalHeroes[heroesArr[3][offset]];
+        
+        if (strengthHero.rank < 2.99 && agilityHero.rank < 2.99
+          && intelligenceHero.rank < 2.99 && universalHero.rank < 2.99) {
+          heroesArr = this.hashService.rollHeroes();
+        }
+        else if ((strengthHero.rank + agilityHero.rank +
+          intelligenceHero.rank + universalHero.rank) / 4 < 2.74) {
+          heroesArr = this.hashService.rollHeroes();
+        }
+        else {
+          notHappyYet = false;
+        }
+
+      }
+  
+    }
+
+    return heroesArr;
+    
+  }
+
+  getStrengthHeroes(): void {
+    this.heroService.getStrengthHeroes().subscribe(strengthHeroes => this.strengthHeroes = strengthHeroes);
+  }
+
+  getAgilityHeroes(): void {
+    this.heroService.getAgilityHeroes().subscribe(agilityHeroes => this.agilityHeroes = agilityHeroes);
+  }
+
+  getIntelligenceHeroes(): void {
+    this.heroService.getIntelligenceHeroes().subscribe(intelligenceHeroes => this.intelligenceHeroes = intelligenceHeroes);
+  }
+
+  getUniversalHeroes(): void {
+    this.heroService.getUniversalHeroes().subscribe(universalHeroes => this.universalHeroes = universalHeroes);
+  }
+
   calculateGameMechanics(): void {
 
-    // First roll for the heroes
-    const heroesArr: number[][] = this.hashService.rollHeroes();
+    if (this.selectedPlayers.length < 1) {
+      alert("Please select some Team 1 players.");
+      return;
+    } 
 
+    if (this.selectedPlayers2.length < 1) {
+      alert("Please select some Team 2 players.");
+      return;
+    }
+
+    if (this.selectedReroll === "") {
+      alert("Please select a ReRoll selection.");
+      return;
+    }
+
+
+    let heroesArr: number[][] = [[]];
     this.totalSelectedPlayers = this.selectedPlayers.concat(this.selectedPlayers2);
+    
+    switch(this.selectedReroll) {
+      case "No Rerolls":
+        heroesArr = this.hashService.rollHeroes();
+        break;
+      case "Everyone is Happy":
+        alert('here');
+        heroesArr = this.everyoneHappy();
+        break;
+      default:
+        break;
+    }
 
     const decideIfDire: number = this.hashService.getRandomInt(this.totalSelectedPlayers.length);
 
@@ -79,16 +174,5 @@ export class GameCreationComponent implements OnInit {
     this.clipboard.copy(fullHashOutputString);
 
   }
-
-  // calculateEveryoneHappy(): number[][] {
-
-  //   let i: number = 0;
-  //   while (i < 10) {
-  //     if (this.selectedPlayers[i] == 1) {
-
-  //     }
-  //   }
-
-  // }
 
 }

@@ -25,4 +25,45 @@ export class PlayerService {
     return of(players);
   }
 
+  playerOffset(name: string): number {
+    let offset: number = 0;
+
+    switch (name) {
+      case "Adam":
+        offset = 0;
+        break;
+      case "Cat":
+        offset = 1;
+        break;
+      case "Eric":
+        offset = 2;
+        break;
+      case "Greg":
+        offset = 3;
+        break;
+      case "Kyle":
+        offset = 4;
+        break;
+      case "Thomas":
+        offset = 5;
+        break;
+      case "Anthony":
+        offset = 6;
+        break;
+      case "OtherB":
+        offset = 7;
+        break;
+      case "OtherC":
+        offset = 8;
+        break;
+      case "OtherD":
+        offset = 9;
+        break;
+      default:
+        console.log(`An error has occured...`);
+    }
+
+    return offset;
+  }
+
 }

@@ -45,40 +45,7 @@ export class DecodeGameComponent implements OnInit {
     let intelligenceOffset: number = 20;
     let universalOffset: number = 30;
 
-    switch (this.selectedPlayer) {
-      case "Adam":
-        offset = 0;
-        break;
-      case "Cat":
-        offset = 1;
-        break;
-      case "Eric":
-        offset = 2;
-        break;
-      case "Greg":
-        offset = 3;
-        break;
-      case "Kyle":
-        offset = 4;
-        break;
-      case "Thomas":
-        offset = 5;
-        break;
-      case "Anthony":
-        offset = 6;
-        break;
-      case "OtherB":
-        offset = 7;
-        break;
-      case "OtherC":
-        offset = 8;
-        break;
-      case "OtherD":
-        offset = 9;
-        break;
-      default:
-        console.log(`An error has occured...`);
-    }
+    offset = this.playerService.playerOffset(this.selectedPlayer);
 
     const seperateEncodedString = this.encodedString.split(',');
     const encodedStringArr = seperateEncodedString.map(str => Number(str));
