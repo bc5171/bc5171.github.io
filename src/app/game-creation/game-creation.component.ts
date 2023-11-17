@@ -108,7 +108,6 @@ export class GameCreationComponent implements OnInit {
 
       }
 
-
     }
 
     return heroesArr;

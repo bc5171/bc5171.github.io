@@ -1,0 +1,11 @@
+<div *ngFor="let recap of dndRecaps">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>{{recap.date | date}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <p [innerHTML]="getSafeHtml(recap.entry)"></p>
+        </mat-card-content>
+    </mat-card>
+    <br>
+</div>

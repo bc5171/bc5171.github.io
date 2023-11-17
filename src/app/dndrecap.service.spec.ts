@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { HeroOffsetService } from './hero-offset.service';
+import { DndrecapService } from './dndrecap.service';
 
-describe('HeroOffsetService', () => {
-  let service: HeroOffsetService;
+describe('DndrecapService', () => {
+  let service: DndrecapService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(HeroOffsetService);
+    service = TestBed.inject(DndrecapService);
   });
 
   it('should be created', () => {

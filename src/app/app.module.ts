@@ -24,6 +24,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { DndRecapComponent } from './dnd-recap/dnd-recap.component';
+import { MatCardModule } from '@angular/material/card';
 
 
 @NgModule({
@@ -35,7 +37,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     DashboardComponent,
     PlayersComponent,
     GameCreationComponent,
-    DecodeGameComponent    
+    DecodeGameComponent,
+    DndRecapComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatListModule,
     MatIconModule,
     ClipboardModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatCardModule    
   ],
   providers: [],
   bootstrap: [AppComponent]
