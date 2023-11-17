@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'DOTA Drafter';
+  title = 'THUNDERDOME';
 
   navLinks: any[];
   activeLinkIndex: number = -1;
