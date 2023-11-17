@@ -28,13 +28,13 @@ export class AppComponent implements OnInit {
         link: './decode_game',
         index: 2
       }, {
-        label: 'Dashboard',
-        link: './dashboard',
-        index: 3
-      }, {
+      //   label: 'Dashboard',
+      //   link: './dashboard',
+      //   index: 3
+      // }, {
         label: 'Players',
         link: './players',
-        index: 4
+        index: 3
       }
     ]
   }
