@@ -8,7 +8,7 @@ import { DecodeGameComponent } from './decode-game/decode-game.component';
 import { DndRecapComponent } from './dnd-recap/dnd-recap.component';
 
 const routes: Routes = [
-  { path: '*', redirectTo: '/game_creation', pathMatch: 'full' },
+  { path: '**', redirectTo: '/dnd_recap', pathMatch: 'full' },
   { path: 'game_creation', component: GameCreationComponent },
   { path: 'decode_game', component: DecodeGameComponent },
   { path: 'dashboard', component: DashboardComponent },

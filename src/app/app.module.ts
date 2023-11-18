@@ -26,6 +26,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { DndRecapComponent } from './dnd-recap/dnd-recap.component';
 import { MatCardModule } from '@angular/material/card';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { MatCardModule } from '@angular/material/card';
     MatIconModule,
     ClipboardModule,
     MatExpansionModule,
-    MatCardModule    
+    MatCardModule,
+    MatSidenavModule  
   ],
   providers: [],
   bootstrap: [AppComponent]

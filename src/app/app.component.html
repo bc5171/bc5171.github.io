@@ -1,13 +1,14 @@
-<mat-toolbar color="primary">
+<mat-toolbar class="project-header" color="primary">
   <span>{{title}}</span>
 </mat-toolbar>
-<nav mat-tab-nav-bar [tabPanel]="tabPanel">
-  <a mat-tab-link
-  *ngFor="let link of navLinks"
-  [routerLink]="link.link"
-  routerLinkActive #rla="routerLinkActive"
-  [active]="rla.isActive"> {{link.label}} </a>
-</nav>
-<mat-tab-nav-panel #tabPanel>
-  <router-outlet></router-outlet>
-</mat-tab-nav-panel>
+<mat-sidenav-container class="project-container">
+  <mat-sidenav #sidenav mode="side" opened class="project-sidenav-content">
+    <mat-nav-list>
+      <a mat-list-item *ngFor="let link of navLinks" [routerLink]="link.link" routerLinkActive>{{link.label}}</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<mat-toolbar class="project-footer"></mat-toolbar>

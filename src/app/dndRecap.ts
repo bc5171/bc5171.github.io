@@ -1,7 +1,7 @@
 export interface DnDRecap {
 
     id: number;
-    date: number;
+    date: Date;
     entry: string;
 
 }
