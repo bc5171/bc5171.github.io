@@ -8,13 +8,13 @@ import { DecodeGameComponent } from './decode-game/decode-game.component';
 import { DndRecapComponent } from './dnd-recap/dnd-recap.component';
 
 const routes: Routes = [
-  { path: '**', redirectTo: '/dnd_recap', pathMatch: 'full' },
   { path: 'game_creation', component: GameCreationComponent },
   { path: 'decode_game', component: DecodeGameComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'players', component: PlayersComponent},
   { path: 'detail/:id', component: UserDetailComponent},
-  { path: 'dnd_recap', component: DndRecapComponent }
+  { path: 'dnd_recap', component: DndRecapComponent },
+  { path: '**', redirectTo: '/dnd_recap', pathMatch: 'full' }
 ];
 
 @NgModule({

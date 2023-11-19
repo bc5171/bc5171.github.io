@@ -27,6 +27,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { DndRecapComponent } from './dnd-recap/dnd-recap.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { EnemyTooltipComponent } from './enemy-tooltip/enemy-tooltip.component';
 
 
 @NgModule({
@@ -39,7 +41,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     PlayersComponent,
     GameCreationComponent,
     DecodeGameComponent,
-    DndRecapComponent
+    DndRecapComponent,
+    EnemyTooltipComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,7 +61,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     ClipboardModule,
     MatExpansionModule,
     MatCardModule,
-    MatSidenavModule  
+    MatSidenavModule,
+    OverlayModule 
   ],
   providers: [],
   bootstrap: [AppComponent]
