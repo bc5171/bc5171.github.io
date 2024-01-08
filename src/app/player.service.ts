@@ -15,7 +15,6 @@ export class PlayerService {
 
   getPlayers(): Observable<Player[]> {
     const players = of(PLAYERS);
-    console.log(`PlayerService: fetched players...`);
     return players;
   }
 

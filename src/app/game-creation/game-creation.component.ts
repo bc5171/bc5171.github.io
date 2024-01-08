@@ -68,27 +68,25 @@ export class GameCreationComponent implements OnInit {
     this.selectedPlayers2 = playerList.selectedOptions.selected.map((item: { value: any; }) => item.value);
   }
 
+  // sum of the average
   confirmToleranceOfTeams(team1Rank: number[], team2Rank: number[]): boolean {
 
     let team1RankAvg: number = 0;
-    let team1count: number = 0;
     let team2RankAvg: number = 0;
-    let team2count: number = 0;
 
     for (let player in team1Rank) {
       team1RankAvg += team1Rank[player];
-      team1count++;
     }
 
     for (let player in team2Rank) {
       team2RankAvg += team2Rank[player];
-      team2count++;
     }
 
-    team1RankAvg = team1RankAvg / team1count;
-    team2RankAvg = team2RankAvg / team2count;
-
+    console.log(`Team 1 Sum: ${team1RankAvg}`);
+    console.log(`Team 2 Sum: ${team2RankAvg}`);
+    
     let teamsAverage = (team1RankAvg + team2RankAvg) / 2;
+
     let lowerBandTeamsAverage = teamsAverage - .125;
     let higherBandTeamsAverage = teamsAverage + .125;
 
@@ -110,8 +108,6 @@ export class GameCreationComponent implements OnInit {
     let heroesArr: number[][] = [[]];
     let notHappyYet: boolean = true;
     
-    console.log(`selectedPlayers: ${JSON.stringify(this.selectedPlayers)}`);
-    
     while (notHappyYet) {
       
       let team1HasAtLeast4: boolean = false;
@@ -122,8 +118,6 @@ export class GameCreationComponent implements OnInit {
       heroesArr = this.hashService.rollHeroes();
 
       for (let player of this.selectedPlayers) {
-
-        console.log(`Player in selectedPlayers: ${JSON.stringify(player)}`)
       
         let offset: number = this.playerService.playerOffset(player);
         
@@ -156,9 +150,6 @@ export class GameCreationComponent implements OnInit {
           team2HasAtLeast4 = true;
         }
       }
-
-      console.log(`Team 1 Ranks: ${team1Rank}`);
-      console.log(`Team 2 Ranks: ${team2Rank}`);
 
       if (!team1HasAtLeast4 || !team2HasAtLeast4) {
         continue;

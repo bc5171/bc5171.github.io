@@ -20,7 +20,6 @@ export class HeroService {
   }
 
   getAgilityHeroes(fullHeroArr: Hero[]): Hero[] {
-    console.log(`hero.service - getAgilityHeroes() - fullHeroArrLength: ${fullHeroArr.length}`)
     return fullHeroArr.slice(31, 63);
   }
 
