@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Hero } from './hero';
 import { HEROES } from './mock-heroes';
 import { Observable, of } from 'rxjs';
-import { MessageService } from './message.service';
 import { rankStats } from './rankStats';
 
 
@@ -11,26 +10,26 @@ import { rankStats } from './rankStats';
 })
 export class HeroService {
 
-  constructor(private messageService: MessageService) { }
+  // getStrengthHeroes(): Observable<Hero[]>{
+  //   const heroes = HEROES.splice(0, 31);
+  //   return of(heroes);
+  // }
 
-  getStrengthHeroes(): Observable<Hero[]>{
-    const heroes = HEROES.splice(0, 31);
-    return of(heroes);
+  getStrengthHeroes(fullHeroArr: Hero[]): Hero[] {
+    return fullHeroArr.slice(0, 31);
   }
 
-  getAgilityHeroes(): Observable<Hero[]>{
-    const heroes = HEROES.splice(0, 31);
-    return of(heroes);
+  getAgilityHeroes(fullHeroArr: Hero[]): Hero[] {
+    console.log(`hero.service - getAgilityHeroes() - fullHeroArrLength: ${fullHeroArr.length}`)
+    return fullHeroArr.slice(31, 63);
   }
 
-  getIntelligenceHeroes(): Observable<Hero[]>{
-    const heroes = HEROES.splice(0, 31);
-    return of(heroes);
+  getIntelligenceHeroes(fullHeroArr: Hero[]): Hero[] {
+    return fullHeroArr.slice(62, 94);
   }
 
-  getUniversalHeroes(): Observable<Hero[]>{
-    const heroes = HEROES.splice(0, 31);
-    return of(heroes);
+  getUniversalHeroes(fullHeroArr: Hero[]): Hero[] {
+    return fullHeroArr.slice(93, 125);
   }
 
   getAllHeroes(): Observable<Hero[]>{

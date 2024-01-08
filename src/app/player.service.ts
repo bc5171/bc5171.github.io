@@ -15,7 +15,7 @@ export class PlayerService {
 
   getPlayers(): Observable<Player[]> {
     const players = of(PLAYERS);
-    this.messageService.add(`PlayerService: fetched players`);
+    console.log(`PlayerService: fetched players...`);
     return players;
   }
 
@@ -50,7 +50,7 @@ export class PlayerService {
       case "Anthony":
         offset = 6;
         break;
-      case "OtherB":
+      case "Ben":
         offset = 7;
         break;
       case "OtherC":

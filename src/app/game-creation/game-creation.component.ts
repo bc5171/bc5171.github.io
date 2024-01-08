@@ -37,6 +37,7 @@ export class GameCreationComponent implements OnInit {
   selectedPlayers2: string[] = [];
   totalSelectedPlayers: string[] = [];
 
+  fullHeroArr: Hero[] = [];
   strengthHeroes: Hero[] = [];
   agilityHeroes: Hero[] = [];
   intelligenceHeroes: Hero[] = [];
@@ -52,6 +53,7 @@ export class GameCreationComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPlayers();
+    this.getAllHeroes();
     this.getStrengthHeroes();
     this.getAgilityHeroes();
     this.getIntelligenceHeroes();
@@ -66,19 +68,109 @@ export class GameCreationComponent implements OnInit {
     this.selectedPlayers2 = playerList.selectedOptions.selected.map((item: { value: any; }) => item.value);
   }
 
+  confirmToleranceOfTeams(team1Rank: number[], team2Rank: number[]): boolean {
+
+    let team1RankAvg: number = 0;
+    let team1count: number = 0;
+    let team2RankAvg: number = 0;
+    let team2count: number = 0;
+
+    for (let player in team1Rank) {
+      team1RankAvg += team1Rank[player];
+      team1count++;
+    }
+
+    for (let player in team2Rank) {
+      team2RankAvg += team2Rank[player];
+      team2count++;
+    }
+
+    team1RankAvg = team1RankAvg / team1count;
+    team2RankAvg = team2RankAvg / team2count;
+
+    let teamsAverage = (team1RankAvg + team2RankAvg) / 2;
+    let lowerBandTeamsAverage = teamsAverage - .125;
+    let higherBandTeamsAverage = teamsAverage + .125;
+
+    if ((lowerBandTeamsAverage < team1RankAvg && higherBandTeamsAverage > team1RankAvg) && 
+      (lowerBandTeamsAverage < team2RankAvg && higherBandTeamsAverage > team2RankAvg)) {
+        return true;
+    }
+
+    return false;
+  }
+
   averageThemAll(): number[][] {
 
+    // randomly generate set of 4 heroes per person
+    // confirm teams are balanced
+    // +- .25 of each other
+    // if one teams has heroes > 4 and other doesn't... toss (redo)
+
     let heroesArr: number[][] = [[]];
-    let averageStrengthHero: rankStats = {averageRank: 0, stdDeviation: 0};
-    let averageAgilityHero: rankStats = {averageRank: 0, stdDeviation: 0};
-    let averageIntelligenceHero: rankStats = {averageRank: 0, stdDeviation: 0};
-    let averageUniversalHero: rankStats = {averageRank: 0, stdDeviation: 0};
+    let notHappyYet: boolean = true;
+    
+    console.log(`selectedPlayers: ${JSON.stringify(this.selectedPlayers)}`);
+    
+    while (notHappyYet) {
+      
+      let team1HasAtLeast4: boolean = false;
+      let team2HasAtLeast4: boolean = false;
+      let team1Rank: number[] = [];
+      let team2Rank: number[] = [];
+      
+      heroesArr = this.hashService.rollHeroes();
 
-    averageStrengthHero = this.heroService.averageHeroes(this.strengthHeroes);
-    averageAgilityHero = this.heroService.averageHeroes(this.agilityHeroes);
-    averageIntelligenceHero = this.heroService.averageHeroes(this.intelligenceHeroes);
-    averageUniversalHero = this.heroService.averageHeroes(this.universalHeroes);
+      for (let player of this.selectedPlayers) {
 
+        console.log(`Player in selectedPlayers: ${JSON.stringify(player)}`)
+      
+        let offset: number = this.playerService.playerOffset(player);
+        
+        let strengthHero: Hero = this.strengthHeroes[heroesArr[0][offset]];
+        let agilityHero: Hero = this.agilityHeroes[heroesArr[1][offset]];
+        let intelligenceHero: Hero = this.intelligenceHeroes[heroesArr[2][offset]];
+        let universalHero: Hero = this.universalHeroes[heroesArr[3][offset]];
+
+        let avgRank = (strengthHero.rank + agilityHero.rank + intelligenceHero.rank + universalHero.rank) / 4;
+        team1Rank.push(avgRank);
+
+        if (team1HasAtLeast4 == false && (strengthHero.rank >= 4 || agilityHero.rank >= 4 || intelligenceHero.rank >= 4 || universalHero.rank >= 4)) {
+          team1HasAtLeast4 = true;
+        }
+  
+      }
+
+      for (let player of this.selectedPlayers2) {
+        let offset: number = this.playerService.playerOffset(player);
+        
+        let strengthHero: Hero = this.strengthHeroes[heroesArr[0][offset]];
+        let agilityHero: Hero = this.agilityHeroes[heroesArr[1][offset]];
+        let intelligenceHero: Hero = this.intelligenceHeroes[heroesArr[2][offset]];
+        let universalHero: Hero = this.universalHeroes[heroesArr[3][offset]];
+
+        let avgRank = (strengthHero.rank + agilityHero.rank + intelligenceHero.rank + universalHero.rank) / 4;
+        team2Rank.push(avgRank);
+
+        if (team2HasAtLeast4 == false && (strengthHero.rank >= 4 || agilityHero.rank >= 4 || intelligenceHero.rank >= 4 || universalHero.rank >= 4)) {
+          team2HasAtLeast4 = true;
+        }
+      }
+
+      console.log(`Team 1 Ranks: ${team1Rank}`);
+      console.log(`Team 2 Ranks: ${team2Rank}`);
+
+      if (!team1HasAtLeast4 || !team2HasAtLeast4) {
+        continue;
+      }
+
+      let rankTolerance = this.confirmToleranceOfTeams(team1Rank, team2Rank);
+
+      if (rankTolerance) {
+        notHappyYet = false;
+      }
+    }
+    
     return heroesArr;
 
   }
@@ -201,20 +293,24 @@ export class GameCreationComponent implements OnInit {
     
   }
 
+  getAllHeroes(): void {
+    this.heroService.getAllHeroes().subscribe(fullHeroArr => this.fullHeroArr = fullHeroArr);
+  }
+
   getStrengthHeroes(): void {
-    this.heroService.getStrengthHeroes().subscribe(strengthHeroes => this.strengthHeroes = strengthHeroes);
+    this.strengthHeroes = this.heroService.getStrengthHeroes(this.fullHeroArr);
   }
 
   getAgilityHeroes(): void {
-    this.heroService.getAgilityHeroes().subscribe(agilityHeroes => this.agilityHeroes = agilityHeroes);
+    this.agilityHeroes = this.heroService.getAgilityHeroes(this.fullHeroArr);
   }
 
   getIntelligenceHeroes(): void {
-    this.heroService.getIntelligenceHeroes().subscribe(intelligenceHeroes => this.intelligenceHeroes = intelligenceHeroes);
+    this.intelligenceHeroes = this.heroService.getIntelligenceHeroes(this.fullHeroArr);
   }
 
   getUniversalHeroes(): void {
-    this.heroService.getUniversalHeroes().subscribe(universalHeroes => this.universalHeroes = universalHeroes);
+    this.universalHeroes = this.heroService.getUniversalHeroes(this.fullHeroArr);
   }
 
   calculateGameMechanics(): void {
@@ -252,6 +348,7 @@ export class GameCreationComponent implements OnInit {
         heroesArr = this.everyoneIsPissed();
         break;
       case "Average Them All":
+        heroesArr = this.averageThemAll();
         break;
       default:
         break;

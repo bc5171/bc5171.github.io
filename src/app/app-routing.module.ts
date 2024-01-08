@@ -13,8 +13,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'players', component: PlayersComponent},
   { path: 'detail/:id', component: UserDetailComponent},
-  { path: 'dnd_recap', component: DndRecapComponent },
-  { path: '**', redirectTo: '/dnd_recap', pathMatch: 'full' }
+  { path: '**', redirectTo: '/game_creation', pathMatch: 'full' }
 ];
 
 @NgModule({

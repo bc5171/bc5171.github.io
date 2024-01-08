@@ -7,26 +7,26 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'THUNDERDOME';
+  title = 'DEFENSE  OF  THE  ANCIENTS';
 
   navLinks: any[];
   activeLinkIndex: number = -1;
 
   constructor(private router: Router) {
     this.navLinks = [
-      {
-        label: 'D&D Recap',
-        link: './dnd_recap',
-        index: 0
-      },
+      // {
+      //   label: 'D&D Recap',
+      //   link: './dnd_recap',
+      //   index: 0
+      // },
       {
         label: 'Create Game',
         link: './game_creation',
-        index: 1
+        index: 0
       }, {
         label: 'Decode Game',
         link: './decode_game',
-        index: 2
+        index: 1
       }, {
       //   label: 'Dashboard',
       //   link: './dashboard',
@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
       // }, {
         label: 'Players',
         link: './players',
-        index: 3
+        index: 2
       }
     ]
   }

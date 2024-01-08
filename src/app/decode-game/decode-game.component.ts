@@ -13,25 +13,27 @@ export class DecodeGameComponent implements OnInit {
   
   constructor(
     private playerService: PlayerService,
-    private heroService: HeroService
+    private heroService: HeroService,
     ) {}
     
+  fullHeroArr: Hero[] = [];
   strengthHeroes: Hero[] = [];
   agilityHeroes: Hero[] = [];
   intelligenceHeroes: Hero[] = [];
   universalHeroes: Hero[] = [];
   
   players: Player[] = [];
+  heroes: Hero[] = [];
   
   // Radio button selection
   selectedPlayer: string = "";
   // Text input
   encodedString: string = "";
 
-  strengthHero: string = "";
-  agilityHero: string = "";
-  intelligenceHero: string = "";
-  universalHero: string = "";
+  strengthHero: Hero = {} as Hero;
+  agilityHero: Hero = {} as Hero;
+  intelligenceHero: Hero = {} as Hero;
+  universalHero: Hero = {} as Hero;
 
   onChipSelected(chipValue: string): void {
     this.selectedPlayer = chipValue;
@@ -54,12 +56,13 @@ export class DecodeGameComponent implements OnInit {
     const intelligenceHeroIndex = encodedStringArr[intelligenceOffset + offset];
     const universalHeroIndex = encodedStringArr[universalOffset + offset];
 
-    this.strengthHero = this.strengthHeroes[strengthHeroIndex].name;
+    console.log(`StrengthHero: ${this.strengthHeroes[strengthHeroIndex]}`);
+    this.strengthHero = this.strengthHeroes[strengthHeroIndex];
     console.log(`AgilityHeroIndex: ${agilityHeroIndex}`);
     console.log(`${JSON.stringify(this.agilityHeroes)}`)
-    this.agilityHero = this.agilityHeroes[agilityHeroIndex].name;
-    this.intelligenceHero = this.intelligenceHeroes[intelligenceHeroIndex].name;
-    this.universalHero = this.universalHeroes[universalHeroIndex].name;
+    this.agilityHero = this.agilityHeroes[agilityHeroIndex];
+    this.intelligenceHero = this.intelligenceHeroes[intelligenceHeroIndex];
+    this.universalHero = this.universalHeroes[universalHeroIndex];
 
   }
 
@@ -68,24 +71,29 @@ export class DecodeGameComponent implements OnInit {
     this.playerService.getPlayers().subscribe(players => this.players = players);
   }
 
+  getAllHeroes(): void {
+    this.heroService.getAllHeroes().subscribe(fullHeroArr => this.fullHeroArr = fullHeroArr);
+  }
+
   getStrengthHeroes(): void {
-    this.heroService.getStrengthHeroes().subscribe(strengthHeroes => this.strengthHeroes = strengthHeroes);
+    this.strengthHeroes = this.heroService.getStrengthHeroes(this.fullHeroArr);
   }
 
   getAgilityHeroes(): void {
-    this.heroService.getAgilityHeroes().subscribe(agilityHeroes => this.agilityHeroes = agilityHeroes);
+    this.agilityHeroes = this.heroService.getAgilityHeroes(this.fullHeroArr);
   }
 
   getIntelligenceHeroes(): void {
-    this.heroService.getIntelligenceHeroes().subscribe(intelligenceHeroes => this.intelligenceHeroes = intelligenceHeroes);
+    this.intelligenceHeroes = this.heroService.getIntelligenceHeroes(this.fullHeroArr);
   }
 
   getUniversalHeroes(): void {
-    this.heroService.getUniversalHeroes().subscribe(universalHeroes => this.universalHeroes = universalHeroes);
+    this.universalHeroes = this.heroService.getUniversalHeroes(this.fullHeroArr);
   }
 
   ngOnInit(): void {
     this.getPlayers();
+    this.getAllHeroes();
     this.getStrengthHeroes();
     this.getAgilityHeroes();
     this.getIntelligenceHeroes();
